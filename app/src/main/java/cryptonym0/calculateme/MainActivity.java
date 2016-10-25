@@ -336,18 +336,33 @@ public class MainActivity extends AppCompatActivity {
                     //Memory
                     case R.id.btnMemClear:
                         Log.d("BUTTON PRESSED: ", "MC");
+                        mem = 0.0;
                         break;
                     case R.id.btnMemPlus:
-                        //Do Stuff
                         Log.d("BUTTON PRESSED: ", "M+");
+                        try{
+                            double d = Double.parseDouble(calc);
+                            mem += d;
+                        }
+                        catch(NumberFormatException e){
+                            g = Toast.makeText(getApplicationContext(), "Invalid Value", Toast.LENGTH_SHORT);
+                            g.show();
+                        }
                         break;
                     case R.id.btnMemMin:
-                        //Do Stuff
                         Log.d("BUTTON PRESSED: ", "M-");
+                        try{
+                            double d = Double.parseDouble(calc);
+                            mem -= d;
+                        }
+                        catch(NumberFormatException e){
+                            g = Toast.makeText(getApplicationContext(), "Invalid Value", Toast.LENGTH_SHORT);
+                            g.show();
+                        }
                         break;
                     case R.id.btnMemReg:
-                        //Do Stuff
                         Log.d("BUTTON PRESSED: ", "MR");
+                        tv.setText(mem.toString());
                         break;
 
                 }
