@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.R.id.input;
+import static cryptonym0.calculateme.R.id.btn1;
 import static cryptonym0.calculateme.R.id.history;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv, history;
     Double answer, mem, operator, total;
     Boolean add, sub, div, divR, mult, clear, delete;
+    String zero = "0";
 
     //Number Buttons
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btn00;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         sub             = false;
         div             = false;
         divR            = false;
+        mult            = false;
         clear           = false;
         delete          = false;
 
@@ -123,97 +127,258 @@ public class MainActivity extends AppCompatActivity {
             switch(btn.getId()){
                 //Buttons 0-9, 00
                 case R.id.btn00:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "00");
                     break;
                 case R.id.btn0:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "0");
                     break;
                 case R.id.btn1:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "1");
                     break;
                 case R.id.btn2:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "2");
                     break;
                 case R.id.btn3:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "3");
                     break;
                 case R.id.btn4:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "4");
                     break;
                 case R.id.btn5:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "5");
                     break;
                 case R.id.btn6:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "6");
                     break;
                 case R.id.btn7:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "7");
                     break;
                 case R.id.btn8:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "8");
                     break;
                 case R.id.btn9:
-                    //Do Stuff
+//                    inputHandleMe(current, calc);
+                    inputHandleMe(calc, current);
                     Log.d("BUTTON PRESSED: ", "9");
                     break;
 
                 //Operators
+                //Always Do a calc check fam
                 case R.id.btnPlus:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "+");
+                    if(!autoUpdateMe()){
+                        operator=Double.parseDouble(calc);
+                        historyHandleMe(calc, '+');
+                        answer += operator;
+                        tv.setText(zero);
+                        boolHandleMe(0);
+                    }
+                    else{
+                        boolHandleMe(0);
+                        historyHandleMe(calc, '+');
+                        showMe();
+                    }
+
                     break;
                 case R.id.btnMinus:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "-");
+                    if(!autoUpdateMe()){
+                        operator=Double.parseDouble(calc);
+                        historyHandleMe(calc, '-');
+                        answer = operator - answer;
+                        tv.setText(zero);
+                        boolHandleMe(1);
+                    }
+                    else{
+                        boolHandleMe(1);
+                        historyHandleMe(calc, '-');
+                        showMe();
+                    }
                     break;
                 case R.id.btnDivide:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "/");
+                    if(!autoUpdateMe()) {
+                        historyHandleMe(calc, '/');
+                        operator = Double.parseDouble(calc);
+                        //Check the 0
+                        if (total == 0.0) {
+                            answer = operator;
+                            total = answer;
+                            tv.setText(zero);
+                            boolHandleMe(2);
+                        } else if (operator == 0.0) {
+                            clearMe();
+                            tv.setText("What Are You Doing.");
+                            boolHandleMe(-1);
+                        } else {
+                            total = operator;
+                            answer /= total;
+                            tv.setText(zero);
+                            boolHandleMe(2);
+                        }
+                    }
+                    else{
+                        boolHandleMe(2);
+                        historyHandleMe(calc, '/');
+                        showMe();
+                    }
                     break;
                 case R.id.btnDivRem:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "%");
+//                    if(!autoUpdateMe()) {
+//                        historyHandleMe(calc, '%');
+//                        operator = Double.parseDouble(calc);
+//                        //Check the 0
+//                        if (total == 0.0) {
+//                            answer = operator;
+//                            total = answer;
+//                            tv.setText(zero);
+//                            boolHandleMe(3);
+//                        } else if (operator == 0.0) {
+//                            clearMe();
+//                            tv.setText("What Are You Doing.");
+//                            boolHandleMe(-1);
+//                        } else {
+//                            total = operator;
+//                            answer %= total;
+//                            tv.setText(zero);
+//                            boolHandleMe(3);
+//                        }
+//                    }
+//                    else{
+//                        boolHandleMe(3);
+//                        historyHandleMe(calc, '%');
+//                        showMe();
+//                    }
                     break;
                 case R.id.btnMultiply:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "*");
+                    if(!autoUpdateMe()) {
+                        operator = Double.parseDouble(calc);
+                        historyHandleMe(calc, '*');
+                        //Check the 0
+                        if (total == 0.0) {
+                            answer = operator;
+                            total = operator;
+                            tv.setText(zero);
+                            boolHandleMe(4);
+                        } else if (operator == 0.0) {
+                            clearMe();
+                            tv.setText("What Are You Doing.");
+                            boolHandleMe(-1);
+                        } else {
+                            total = operator;
+                            answer *= operator;
+                            tv.setText(zero);
+                            boolHandleMe(4);
+                        }
+                    }
+                    else{
+                        boolHandleMe(4);
+                        historyHandleMe(calc, '*');
+                        showMe();
+                    }
                     break;
                 case R.id.btnEquals:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "=");
+                    operator = Double.parseDouble(calc);
+                    double zeroMe = Double.parseDouble(calc);
+                    //Do a ton of checks
+                    if(add){
+                        answer += operator;
+                        showMe();
+                    }
+                    else if(sub){
+                        answer = answer - operator;
+                        showMe();
+                    }
+                    else if(div) {
+                        if (zeroMe == 0.0) {
+                            tv.setText("Undefined");
+                            clearMe();
+                        } else {
+                            answer /= zeroMe;
+                            showMe();
+                        }
+                    }
+                    else if(divR){
+                        //Currently broken
+//                        showMe();
+                    }
+                    else if(mult){
+                        answer *= operator;
+                        showMe();
+                    }
+                    else{
+                        tv.setText(zero);
+                        history.setText(zero);
+                        clearMe();
+                    }
+                    historyMe();
+                    clearMe();
+                    boolHandleMe(-1);
                     break;
 
                 //Modifiers
                 case R.id.btnClear:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "C");
+                    tv.setText(zero);
+                    history.setText(zero);
+                    clearMe();
                     break;
                 case R.id.btnDelete:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "DEL");
+                    if((calc.indexOf('-') >= 0) || (calc.length() == 1)){
+                        tv.setText(zero);
+                    }
+                    else{
+                        calc = calc.substring(0, calc.length()-1);
+                        tv.setText(calc);
+                    }
                     break;
                 case R.id.btnDecimal:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", ".");
+                    if(calc.indexOf('.') >=0){
+                        break;
+                    }
+                    //Check length eventually
+                    else{
+                        tv.setText(calc + current);
+                    }
                     break;
                 case R.id.btnPlusMinus:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "+/-");
+                    if(calc.indexOf('-') >= 0)
+                    {
+                        tv.setText(calc.substring(1));
+                    } else if(calc.equals(zero)){
+                        break;
+                    } else {
+                        tv.setText('-'+calc); // append - to front of input
+                    }
                     break;
-
                 //Memory
                 case R.id.btnMemClear:
-                    //Do Stuff
                     Log.d("BUTTON PRESSED: ", "MC");
                     break;
                 case R.id.btnMemPlus:
@@ -291,20 +456,89 @@ public class MainActivity extends AppCompatActivity {
     }//End Bool Handler
 
     //User input Handler
-    public void inputHandleMe(){
-        //Do Stuff
+    public void inputHandleMe(String cur, String userInput){
+        //Check edge case 0
+        if(cur.equals(zero) || clear){
+            tv.setText(userInput);
+            clear = false;
+        }
+        //Overflow
+        else if((userInput+cur).length() > 15){
+            //Do something here later
+            Log.d("INPUT HANDLER: ", "Too Many Values");
+        }
+        //Add those babies
+        else{
+            tv.setText(cur + userInput);
+            clear = false;
+        }
     }
 
     //History Handler
-    public void historyHandleMe(){
-        //Do Stuff
+    public void historyHandleMe(String userInput, Character operator){
+        String historyOutput = "";
+        String currentHistory = history.getText().toString();
+        //Length Check
+        if(currentHistory.length() > 30){historyOutput += currentHistory.substring(userInput.length() + 4);}
+        //Append
+        else{historyOutput += userInput;}
+        historyOutput+=operator;
+        history.setText(historyOutput);
     }
 
     //Check previous Calculation
     public boolean autoUpdateMe(){
-        //Do Stuff
-        return true;//Change this
-    }
+        String output = tv.getText().toString();
+        double n = Double.parseDouble(output);
+        //If statements
+        //Boolean add, sub, div, divR, mult, clear, delete;
+        if(add){
+            answer += n;
+            boolHandleMe(-1);
+            return true;
+        }
+        else if(sub){
+            answer =  answer - n;
+            boolHandleMe(-1);
+            return true;
+        }
+        else if(mult){
+            answer = answer * n;
+            boolHandleMe(-1);
+            return true;
+        }
+        else if(div){
+            if(n==0.0){
+                tv.setText("You Can't Divide By Zero Fam.");
+                boolHandleMe(-1);
+                clearMe();
+            }
+            else {
+                answer /= n;
+                boolHandleMe(-1);
+                return true;
+            }
+        }
+        else if(divR){
+            if(n==0.0){
+                tv.setText("You Can't Divide By Zero Fam.");
+                boolHandleMe(-1);
+                clearMe();
+            }
+            else {
+                answer %= n;
+                boolHandleMe(-1);
+                return true;
+            }
+        }
+        else{
+            history.setText("");
+            return false;
+        }
+
+        return false;
+    }//Auto Update me end
+
 
     //Clear Function
     public void clearMe(){
@@ -315,12 +549,23 @@ public class MainActivity extends AppCompatActivity {
 
     //Update History
     public void historyMe(){
-        //Do Stuff
+        String hist = history.getText().toString();
+        String output = tv.getText().toString();
+        history.setText((hist+output));
     }
 
     //Set Textview
-    public void showMe(){
-        //Do Stuff
+    public void showMe() {
+        double zeroMe = Double.parseDouble(tv.getText().toString());
+        if (zeroMe == 0.0) {
+            tv.setText("Undefined");
+
+        } else {
+            String output = answer.toString();
+            //Add  some checks here later
+            tv.setText(output);
+            clear = true;
+        }
     }
 
 }
