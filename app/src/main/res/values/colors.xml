@@ -11,6 +11,12 @@
 
     <color name="generalTextColour">#1A202C</color>
     <color name="generalInputColour">#f2efb9</color>
+    <color name="hintColour">#485C5A</color>
 
+    <color name="onPress">#4d4b2c</color>
+    <color name="onPressBackground">#588b75</color>
+    <color name="onPressNum">#aeac80</color>
+    <color name="onPressClr">#942b20</color>
+    <color name="onPressM">#165450</color>
     <color name="generalBackgroudColour">#72B095</color>
 </resources>

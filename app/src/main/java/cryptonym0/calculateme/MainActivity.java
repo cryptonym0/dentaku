@@ -1,8 +1,11 @@
 package cryptonym0.calculateme;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -82,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnMemPlus).setOnClickListener(clickMe);
         findViewById(R.id.btnMemMin).setOnClickListener(clickMe);
         findViewById(R.id.btnMemReg).setOnClickListener(clickMe);
+
+        //Toast
+        g = Toast.makeText(getApplicationContext(), "Invalid Value", Toast.LENGTH_SHORT);
     }//End on Create
 
     //My One beautiful Listener
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             Button btn          = (Button)view;
             String current      = btn.getText().toString();
             String calc         = tv.getText().toString();
+            view.setSelected(true);
 
             if (tv.getText().equals("Undefined")) {
                 g = Toast.makeText(getApplicationContext(), "Clearing Undefined Values.", Toast.LENGTH_SHORT);
@@ -154,11 +161,15 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnPlus:
                         Log.d("BUTTON PRESSED: ", "+");
                         if (!autoUpdateMe()) {
-                            operator = Double.parseDouble(calc);
-                            historyHandleMe(calc, '+');
-                            answer += operator;
-                            tv.setText(zero);
-                            boolHandleMe(0);
+                            try {
+                                operator = Double.parseDouble(calc);
+                                historyHandleMe(calc, '+');
+                                answer += operator;
+                                tv.setText(zero);
+                                boolHandleMe(0);
+                            }catch(NumberFormatException e) {
+                                g.show();
+                            }
                         } else {
                             boolHandleMe(0);
                             historyHandleMe(calc, '+');
@@ -168,11 +179,15 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnMinus:
                         Log.d("BUTTON PRESSED: ", "-");
                         if (!autoUpdateMe()) {
-                            operator = Double.parseDouble(calc);
-                            historyHandleMe(calc, '-');
-                            answer = operator - answer;
-                            tv.setText(zero);
-                            boolHandleMe(1);
+                            try {
+                                operator = Double.parseDouble(calc);
+                                historyHandleMe(calc, '-');
+                                answer = operator - answer;
+                                tv.setText(zero);
+                                boolHandleMe(1);
+                            }catch(NumberFormatException e) {
+                                g.show();
+                            }
                         } else {
                             boolHandleMe(1);
                             historyHandleMe(calc, '-');
@@ -182,23 +197,28 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnDivide:
                         Log.d("BUTTON PRESSED: ", "/");
                         if (!autoUpdateMe()) {
-                            historyHandleMe(calc, '/');
-                            operator = Double.parseDouble(calc);
-                            //Check the 0
-                            if (total == 0.0) {
-                                answer = operator;
-                                total = answer;
-                                tv.setText(zero);
-                                boolHandleMe(2);
-                            } else if (operator == 0.0) {
-                                tv.setText("Undefined");
-                                clearMe();
-                                boolHandleMe(-1);
-                            } else {
-                                total = operator;
-                                answer = answer / total;
-                                tv.setText(zero);
-                                boolHandleMe(2);
+                            try{
+
+                                historyHandleMe(calc, '/');
+                                operator = Double.parseDouble(calc);
+                                //Check the 0
+                                if (total == 0.0) {
+                                    answer = operator;
+                                    total = answer;
+                                    tv.setText(zero);
+                                    boolHandleMe(2);
+                                } else if (operator == 0.0) {
+                                    tv.setText("Undefined");
+                                    clearMe();
+                                    boolHandleMe(-1);
+                                } else {
+                                    total = operator;
+                                    answer = answer / total;
+                                    tv.setText(zero);
+                                    boolHandleMe(2);
+                                }
+                            }catch(NumberFormatException e) {
+                                g.show();
                             }
                         } else {
                             boolHandleMe(2);
@@ -233,23 +253,27 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnMultiply:
                         Log.d("BUTTON PRESSED: ", "*");
                         if (!autoUpdateMe()) {
-                            operator = Double.parseDouble(calc);
-                            historyHandleMe(calc, '*');
-                            //Check the 0
-                            if (total == 0.0) {
-                                answer = operator;
-                                total = operator;
-                                tv.setText(zero);
-                                boolHandleMe(4);
-                            } else if (operator == 0.0) {
-                                clearMe();
-                                tv.setText("What Are You Doing.");
-                                boolHandleMe(-1);
-                            } else {
-                                total = operator;
-                                answer *= operator;
-                                tv.setText(zero);
-                                boolHandleMe(4);
+                            try {
+                                operator = Double.parseDouble(calc);
+                                historyHandleMe(calc, '*');
+                                //Check the 0
+                                if (total == 0.0) {
+                                    answer = operator;
+                                    total = operator;
+                                    tv.setText(zero);
+                                    boolHandleMe(4);
+                                } else if (operator == 0.0) {
+                                    clearMe();
+                                    tv.setText("What Are You Doing.");
+                                    boolHandleMe(-1);
+                                } else {
+                                    total = operator;
+                                    answer *= operator;
+                                    tv.setText(zero);
+                                    boolHandleMe(4);
+                                }
+                            }catch(NumberFormatException e) {
+                                g.show();
                             }
                         } else {
                             boolHandleMe(4);
@@ -263,9 +287,8 @@ public class MainActivity extends AppCompatActivity {
                         //Do a ton of checks
                         operator = Double.parseDouble(calc);//Breaks on this
                         double zeroMe = Double.parseDouble(calc);
-
-
-                        if (add) {
+                        try {
+                            if (add) {
                                 answer += operator;
                                 showMe();
                             } else if (sub) {
@@ -290,6 +313,9 @@ public class MainActivity extends AppCompatActivity {
                                 history.setText(zero);
                                 clearMe();
                             }
+                        }catch(NumberFormatException e) {
+                            g.show();
+                        }
                             clearMe();
                             historyMe();
                             boolHandleMe(-1);
@@ -335,7 +361,12 @@ public class MainActivity extends AppCompatActivity {
                     //Memory
                     case R.id.btnMemClear:
                         Log.d("BUTTON PRESSED: ", "MC");
-                        mem = 0.0;
+                        try {
+                            mem = 0.0;
+                        }
+                        catch(NumberFormatException e) {
+                            g.show();
+                        }
                         break;
                     case R.id.btnMemPlus:
                         Log.d("BUTTON PRESSED: ", "M+");
@@ -344,7 +375,6 @@ public class MainActivity extends AppCompatActivity {
                             mem += d;
                         }
                         catch(NumberFormatException e){
-                            g = Toast.makeText(getApplicationContext(), "Invalid Value", Toast.LENGTH_SHORT);
                             g.show();
                         }
                         break;
@@ -361,7 +391,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.btnMemReg:
                         Log.d("BUTTON PRESSED: ", "MR");
-                        tv.setText(mem.toString());
+                        try {
+                            tv.setText(mem.toString());
+                        }
+                        catch(NumberFormatException e) {
+                            g.show();
+                        }
                         break;
 
                 }
@@ -369,7 +404,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };//End on click listener
-
 
     //Handlers
     //Bools
@@ -464,56 +498,52 @@ public class MainActivity extends AppCompatActivity {
     //Check previous Calculation
     public boolean autoUpdateMe(){
         String output = tv.getText().toString();
-        double n = Double.parseDouble(output);
-        //If statements
-        //Boolean add, sub, div, divR, mult, clear, delete;
-        if(add){
-            answer += n;
-            boolHandleMe(-1);
-            return true;
-        }
-        else if(sub){
-            answer =  answer - n;
-            boolHandleMe(-1);
-            return true;
-        }
-        else if(mult){
-            answer = answer * n;
-            boolHandleMe(-1);
-            return true;
-        }
-        else if(div){
-            if(n==0.0){
-                tv.setText("You Can't Divide By Zero Fam.");
-                boolHandleMe(-1);
-                clearMe();
-            }
-            else {
-                answer /= n;
+        try {
+            double n = Double.parseDouble(output);
+            //If statements
+            //Boolean add, sub, div, divR, mult, clear, delete;
+            if (add) {
+                answer += n;
                 boolHandleMe(-1);
                 return true;
-            }
-        }
-        else if(divR){
-            if(n==0.0){
-                tv.setText("You Can't Divide By Zero Fam.");
-                boolHandleMe(-1);
-                clearMe();
-            }
-            else {
-                answer %= n;
+            } else if (sub) {
+                answer = answer - n;
                 boolHandleMe(-1);
                 return true;
+            } else if (mult) {
+                answer = answer * n;
+                boolHandleMe(-1);
+                return true;
+            } else if (div) {
+                if (n == 0.0) {
+                    tv.setText("You Can't Divide By Zero Fam.");
+                    boolHandleMe(-1);
+                    clearMe();
+                } else {
+                    answer /= n;
+                    boolHandleMe(-1);
+                    return true;
+                }
+            } else if (divR) {
+                if (n == 0.0) {
+                    tv.setText("You Can't Divide By Zero Fam.");
+                    boolHandleMe(-1);
+                    clearMe();
+                } else {
+                    answer %= n;
+                    boolHandleMe(-1);
+                    return true;
+                }
+            } else {
+                history.setText("");
+                return false;
             }
         }
-        else{
-            history.setText("");
-            return false;
+        catch(NumberFormatException e) {
+            g.show();
         }
-
         return false;
     }//Auto Update me end
-
 
     //Clear Function
     public void clearMe(){
@@ -526,17 +556,6 @@ public class MainActivity extends AppCompatActivity {
     public void historyMe(){
         history.setText(tv.getText().toString());
 //        history.append(tv.getText());
-    }
-
-    //Check if is undefined
-    public void defineMe(){
-        if (tv.getText().equals("Undefined")) {
-            g = Toast.makeText(getApplicationContext(), "Clearing Undefined Values.", Toast.LENGTH_SHORT);
-            g.show();
-            tv.setText(zero);
-            history.setText(zero);
-            clearMe();
-        }
     }
 
     //Set Textview
@@ -555,5 +574,6 @@ public class MainActivity extends AppCompatActivity {
         clear = true;
 //        }
     }
+
 
 }
