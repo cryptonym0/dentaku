@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="numberButtonColour">#DEDBA7</color>
+    <color name="operatorsButtonColour">#a9a77f</color>
+    <color name="modifierButtonColour">#DEDBA7</color>
+    <color name="memoryButtonColour">#1F7872</color>
+    <color name="clearButtonColour">#D13F31</color>
+
+    <color name="generalTextColour">#1A202C</color>
+    <color name="generalInputColour">#f2efb9</color>
+
+    <color name="generalBackgroudColour">#72B095</color>
 </resources>

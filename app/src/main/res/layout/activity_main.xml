@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cryptonym0.calculateme.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/generalBackgroudColour">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,7 +17,9 @@
         android:id="@+id/history"
         android:layout_weight="1"
         android:hint="@string/historyHint"
-        android:gravity="center_horizontal|end"/>
+        android:gravity="center_horizontal|end"
+        android:textColor="@color/generalTextColour"
+        android:background="@drawable/inputshape"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +28,9 @@
         android:layout_weight="1"
         android:gravity="end"
         android:textSize="40sp"
-        android:hint="@string/mainTextHint" />
+        android:hint="@string/mainTextHint"
+        android:textColor="@color/generalTextColour"
+        android:background="@drawable/inputshape"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -33,58 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:weightSum="5">
+        android:weightSum="5"
+        android:background="@color/generalBackgroudColour">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/divr"
-            android:id="@+id/btnDivRem"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/mc"
-            android:id="@+id/btnMemClear"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/mp"
-            android:id="@+id/btnMemPlus"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/mm"
-            android:id="@+id/btnMemMin"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/mr"
-            android:id="@+id/btnMemReg"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:weightSum="4">
 
         <Button
             android:layout_width="wrap_content"
@@ -92,7 +48,57 @@
             android:text="@string/clear"
             android:id="@+id/btnClear"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/clrbtnshape"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/mc"
+            android:id="@+id/btnMemClear"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:background="@drawable/membtnshape"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/mp"
+            android:id="@+id/btnMemPlus"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:background="@drawable/membtnshape"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/mm"
+            android:id="@+id/btnMemMin"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:background="@drawable/membtnshape"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/mr"
+            android:id="@+id/btnMemReg"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:background="@drawable/membtnshape"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:weightSum="4"
+        android:background="@color/generalBackgroudColour">
+
 
         <Button
             android:layout_width="wrap_content"
@@ -100,7 +106,17 @@
             android:text="@string/del"
             android:id="@+id/btnDelete"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/divr"
+            android:id="@+id/btnDivRem"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -108,7 +124,8 @@
             android:text="@string/div"
             android:id="@+id/btnDivide"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -116,7 +133,8 @@
             android:text="@string/mult"
             android:id="@+id/btnMultiply"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
     </LinearLayout>
 
@@ -126,7 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:background="@color/generalBackgroudColour">
 
         <Button
             android:layout_width="wrap_content"
@@ -134,7 +153,8 @@
             android:text="@string/seven"
             android:id="@+id/btn7"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -142,7 +162,8 @@
             android:text="@string/eight"
             android:id="@+id/btn8"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -150,7 +171,8 @@
             android:text="@string/nine"
             android:id="@+id/btn9"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -158,7 +180,9 @@
             android:text="@string/min"
             android:id="@+id/btnMinus"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:padding="5dp"
+            android:background="@drawable/operatorbtnshape"/>
 
     </LinearLayout>
 
@@ -168,7 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:background="@color/generalBackgroudColour">
 
         <Button
             android:layout_width="wrap_content"
@@ -176,7 +201,8 @@
             android:text="@string/four"
             android:id="@+id/btn4"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -184,7 +210,8 @@
             android:text="@string/five"
             android:id="@+id/btn5"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -192,7 +219,8 @@
             android:text="@string/six"
             android:id="@+id/btn6"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -200,7 +228,8 @@
             android:text="@string/plus"
             android:id="@+id/btnPlus"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
     </LinearLayout>
 
@@ -210,7 +239,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:background="@color/generalBackgroudColour">
 
         <Button
             android:layout_width="wrap_content"
@@ -218,7 +248,8 @@
             android:text="@string/one"
             android:id="@+id/btn1"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -226,7 +257,8 @@
             android:text="@string/two"
             android:id="@+id/btn2"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -234,7 +266,8 @@
             android:text="@string/three"
             android:id="@+id/btn3"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -242,7 +275,8 @@
             android:text="&#177;"
             android:id="@+id/btnPlusMinus"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
     </LinearLayout>
 
@@ -252,7 +286,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:background="@color/generalBackgroudColour">
 
         <Button
             android:layout_width="wrap_content"
@@ -260,7 +295,8 @@
             android:text="@string/zero"
             android:id="@+id/btn0"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -268,7 +304,8 @@
             android:text="@string/decimal"
             android:id="@+id/btnDecimal"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -276,7 +313,8 @@
             android:text="@string/doubleZero"
             android:id="@+id/btn00"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/btnshape"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -284,7 +322,8 @@
             android:text="@string/equals"
             android:id="@+id/btnEquals"
             android:layout_weight="1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:background="@drawable/operatorbtnshape"/>
 
     </LinearLayout>
 

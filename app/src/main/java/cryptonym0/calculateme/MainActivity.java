@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.DecimalFormat;
 
 import static android.R.id.input;
 import static cryptonym0.calculateme.R.id.btn1;
@@ -19,9 +20,8 @@ public class MainActivity extends AppCompatActivity {
     Double answer, mem, operator, total;
     Boolean add, sub, div, divR, mult, clear, delete;
     String zero = "0";
-    String historyOutput = "";
     private Toast g;
-
+    DecimalFormat p4 = new DecimalFormat("0.0000");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnMemMin).setOnClickListener(clickMe);
         findViewById(R.id.btnMemReg).setOnClickListener(clickMe);
     }//End on Create
-
 
     //My One beautiful Listener
     private View.OnClickListener clickMe = new View.OnClickListener() {
@@ -451,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
         String historyOutput = "";
         String currentHistory = history.getText().toString();
         //Length Check
-        if(currentHistory.length() > 30){
+        if(currentHistory.length() > 60){
             historyOutput += currentHistory.substring(userInput.length() + 4);
         }
         else{
@@ -547,10 +546,13 @@ public class MainActivity extends AppCompatActivity {
 //            tv.setText("Undefined");
 //
 //        } else {
-            String output = answer.toString();
+
+        String output = p4.format(answer).toString();
             //Add  some checks here later
-            tv.setText(output);
-            clear = true;
+
+
+        tv.setText(output);
+        clear = true;
 //        }
     }
 
