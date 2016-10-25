@@ -15,40 +15,12 @@ import static cryptonym0.calculateme.R.id.history;
 public class MainActivity extends AppCompatActivity {
 
     //Globals
-    //Textviews
     TextView tv, history;
     Double answer, mem, operator, total;
     Boolean add, sub, div, divR, mult, clear, delete;
     String zero = "0";
-
-    //Number Buttons
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btn00;
-    //Operators
-    Button btnPlus, btnMin, btnDiv, btnDivR, btnmulti, btnEqu;
-    //Modifiers
-    Button btnClear, btnDel, btnDec, btnNeg;
-    //Memory
-    Button btnMemClr, btnMemPlus, btnMemMinus, btnMemRem;
-
-
-    //Boolean Flags
-    //Number Flags
-    boolean isNumber = false;
-    //Mod Flage
-    boolean isClear = false;
-    boolean isDecimalOn = false;
-    boolean isNegative = false;
-    //Operator Flags
-    boolean isOperatorOn = true;
-    boolean OperLast = false;
-    boolean equalOn = false;
-    //Store Memory
-    double memory = 0.0;
-
-    //double for initial accumulator, and the number in textview
-    double accum = 0.0, temp = 0.0;
-    //flag for equals to know what was the last operation
-    char operEqualFlag = ' ';
+    String historyOutput = "";
+    private Toast g;
 
 
     @Override
@@ -71,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         mult            = false;
         clear           = false;
         delete          = false;
-
 
         //Initialize everything again
         //Textviews
@@ -123,144 +94,133 @@ public class MainActivity extends AppCompatActivity {
             String current      = btn.getText().toString();
             String calc         = tv.getText().toString();
 
-            //Clunky Switch
-            switch(btn.getId()){
-                //Buttons 0-9, 00
-                case R.id.btn00:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "00");
-                    break;
-                case R.id.btn0:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "0");
-                    break;
-                case R.id.btn1:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "1");
-                    break;
-                case R.id.btn2:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "2");
-                    break;
-                case R.id.btn3:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "3");
-                    break;
-                case R.id.btn4:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "4");
-                    break;
-                case R.id.btn5:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "5");
-                    break;
-                case R.id.btn6:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "6");
-                    break;
-                case R.id.btn7:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "7");
-                    break;
-                case R.id.btn8:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "8");
-                    break;
-                case R.id.btn9:
-//                    inputHandleMe(current, calc);
-                    inputHandleMe(calc, current);
-                    Log.d("BUTTON PRESSED: ", "9");
-                    break;
+            if (tv.getText().equals("Undefined")) {
+                g = Toast.makeText(getApplicationContext(), "Clearing Undefined Values.", Toast.LENGTH_SHORT);
+                g.show();
+                tv.setText(zero);
+                history.setText(zero);
+                clearMe();
 
-                //Operators
-                //Always Do a calc check fam
-                case R.id.btnPlus:
-                    Log.d("BUTTON PRESSED: ", "+");
-                    if(!autoUpdateMe()){
-                        operator=Double.parseDouble(calc);
-                        historyHandleMe(calc, '+');
-                        answer += operator;
-                        tv.setText(zero);
-                        boolHandleMe(0);
-                    }
-                    else{
-                        boolHandleMe(0);
-                        historyHandleMe(calc, '+');
-                        showMe();
-                    }
+            } else {
+                //Clunky Switch
+                switch (btn.getId()) {
+                    //Buttons 0-9, 00
+                    case R.id.btn00:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "00");
+                        break;
+                    case R.id.btn0:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "0");
+                        break;
+                    case R.id.btn1:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "1");
+                        break;
+                    case R.id.btn2:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "2");
+                        break;
+                    case R.id.btn3:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "3");
+                        break;
+                    case R.id.btn4:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "4");
+                        break;
+                    case R.id.btn5:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "5");
+                        break;
+                    case R.id.btn6:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "6");
+                        break;
+                    case R.id.btn7:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "7");
+                        break;
+                    case R.id.btn8:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "8");
+                        break;
+                    case R.id.btn9:
+                        inputHandleMe(calc, current);
+                        Log.d("BUTTON PRESSED: ", "9");
+                        break;
 
-                    break;
-                case R.id.btnMinus:
-                    Log.d("BUTTON PRESSED: ", "-");
-                    if(!autoUpdateMe()){
-                        operator=Double.parseDouble(calc);
-                        historyHandleMe(calc, '-');
-                        answer = operator - answer;
-                        tv.setText(zero);
-                        boolHandleMe(1);
-                    }
-                    else{
-                        boolHandleMe(1);
-                        historyHandleMe(calc, '-');
-                        showMe();
-                    }
-                    break;
-                case R.id.btnDivide:
-                    Log.d("BUTTON PRESSED: ", "/");
-                    if(!autoUpdateMe()) {
-                        historyHandleMe(calc, '/');
-                        operator = Double.parseDouble(calc);
-                        //Check the 0
-                        if (total == 0.0) {
-                            answer = operator;
-                            total = answer;
+                    //Operators
+                    //Always Do a calc check fam
+                    case R.id.btnPlus:
+                        Log.d("BUTTON PRESSED: ", "+");
+                        if (!autoUpdateMe()) {
+                            operator = Double.parseDouble(calc);
+                            historyHandleMe(calc, '+');
+                            answer += operator;
                             tv.setText(zero);
-                            boolHandleMe(2);
-                        } else if (operator == 0.0) {
-                            clearMe();
-                            tv.setText("What Are You Doing.");
-                            boolHandleMe(-1);
+                            boolHandleMe(0);
                         } else {
-                            total = operator;
-                            answer /= total;
-                            tv.setText(zero);
-                            boolHandleMe(2);
+                            boolHandleMe(0);
+                            historyHandleMe(calc, '+');
+                            showMe();
                         }
-                    }
-                    else{
-                        boolHandleMe(2);
-                        historyHandleMe(calc, '/');
-                        showMe();
-                    }
-                    break;
-                case R.id.btnDivRem:
-                    Log.d("BUTTON PRESSED: ", "%");
+                        break;
+                    case R.id.btnMinus:
+                        Log.d("BUTTON PRESSED: ", "-");
+                        if (!autoUpdateMe()) {
+                            operator = Double.parseDouble(calc);
+                            historyHandleMe(calc, '-');
+                            answer = operator - answer;
+                            tv.setText(zero);
+                            boolHandleMe(1);
+                        } else {
+                            boolHandleMe(1);
+                            historyHandleMe(calc, '-');
+                            showMe();
+                        }
+                        break;
+                    case R.id.btnDivide:
+                        Log.d("BUTTON PRESSED: ", "/");
+                        if (!autoUpdateMe()) {
+                            historyHandleMe(calc, '/');
+                            operator = Double.parseDouble(calc);
+                            //Check the 0
+                            if (total == 0.0) {
+                                answer = operator;
+                                total = answer;
+                                tv.setText(zero);
+                                boolHandleMe(2);
+                            } else if (operator == 0.0) {
+                                tv.setText("Undefined");
+                                clearMe();
+                                boolHandleMe(-1);
+                            } else {
+                                total = operator;
+                                answer = answer / total;
+                                tv.setText(zero);
+                                boolHandleMe(2);
+                            }
+                        } else {
+                            boolHandleMe(2);
+                            historyHandleMe(calc, '/');
+                            showMe();
+                        }
+                        break;
+//                    case R.id.btnDivRem:
+//                        Log.d("BUTTON PRESSED: ", "%");
 //                    if(!autoUpdateMe()) {
 //                        historyHandleMe(calc, '%');
 //                        operator = Double.parseDouble(calc);
 //                        //Check the 0
-//                        if (total == 0.0) {
+//                        if (total == 0.0 || operator == 0) {
 //                            answer = operator;
 //                            total = answer;
 //                            tv.setText(zero);
 //                            boolHandleMe(3);
-//                        } else if (operator == 0.0) {
-//                            clearMe();
-//                            tv.setText("What Are You Doing.");
-//                            boolHandleMe(-1);
 //                        } else {
-//                            total = operator;
-//                            answer %= total;
+//                            total = operator/100;
+//                            answer = answer * total;
 //                            tv.setText(zero);
 //                            boolHandleMe(3);
 //                        }
@@ -270,133 +230,130 @@ public class MainActivity extends AppCompatActivity {
 //                        historyHandleMe(calc, '%');
 //                        showMe();
 //                    }
-                    break;
-                case R.id.btnMultiply:
-                    Log.d("BUTTON PRESSED: ", "*");
-                    if(!autoUpdateMe()) {
-                        operator = Double.parseDouble(calc);
-                        historyHandleMe(calc, '*');
-                        //Check the 0
-                        if (total == 0.0) {
-                            answer = operator;
-                            total = operator;
-                            tv.setText(zero);
-                            boolHandleMe(4);
-                        } else if (operator == 0.0) {
-                            clearMe();
-                            tv.setText("What Are You Doing.");
-                            boolHandleMe(-1);
+//                        break;
+                    case R.id.btnMultiply:
+                        Log.d("BUTTON PRESSED: ", "*");
+                        if (!autoUpdateMe()) {
+                            operator = Double.parseDouble(calc);
+                            historyHandleMe(calc, '*');
+                            //Check the 0
+                            if (total == 0.0) {
+                                answer = operator;
+                                total = operator;
+                                tv.setText(zero);
+                                boolHandleMe(4);
+                            } else if (operator == 0.0) {
+                                clearMe();
+                                tv.setText("What Are You Doing.");
+                                boolHandleMe(-1);
+                            } else {
+                                total = operator;
+                                answer *= operator;
+                                tv.setText(zero);
+                                boolHandleMe(4);
+                            }
                         } else {
-                            total = operator;
-                            answer *= operator;
-                            tv.setText(zero);
                             boolHandleMe(4);
-                        }
-                    }
-                    else{
-                        boolHandleMe(4);
-                        historyHandleMe(calc, '*');
-                        showMe();
-                    }
-                    break;
-                case R.id.btnEquals:
-                    Log.d("BUTTON PRESSED: ", "=");
-                    operator = Double.parseDouble(calc);
-                    double zeroMe = Double.parseDouble(calc);
-                    //Do a ton of checks
-                    if(add){
-                        answer += operator;
-                        showMe();
-                    }
-                    else if(sub){
-                        answer = answer - operator;
-                        showMe();
-                    }
-                    else if(div) {
-                        if (zeroMe == 0.0) {
-                            tv.setText("Undefined");
-                            clearMe();
-                        } else {
-                            answer /= zeroMe;
+                            historyHandleMe(calc, '*');
                             showMe();
                         }
-                    }
-                    else if(divR){
-                        //Currently broken
-//                        showMe();
-                    }
-                    else if(mult){
-                        answer *= operator;
-                        showMe();
-                    }
-                    else{
+                        break;
+                    case R.id.btnEquals:
+                        Log.d("BUTTON PRESSED: ", "=");
+
+                        //Do a ton of checks
+                        operator = Double.parseDouble(calc);//Breaks on this
+                        double zeroMe = Double.parseDouble(calc);
+
+
+                        if (add) {
+                                answer += operator;
+                                showMe();
+                            } else if (sub) {
+                                answer = answer - operator;
+                                showMe();
+                            } else if (div) {
+                                if (zeroMe == 0.0) {
+                                    tv.setText("Undefined");
+                                    clearMe();
+                                } else {
+                                    answer /= zeroMe;
+                                    showMe();
+                                }
+                            } else if (divR) {
+                                //Currently broken
+//                                  showMe();
+                            } else if (mult) {
+                                answer *= operator;
+                                showMe();
+                            } else {
+                                tv.setText(zero);
+                                history.setText(zero);
+                                clearMe();
+                            }
+                            clearMe();
+                            historyMe();
+                            boolHandleMe(-1);
+
+                        break;
+
+                    //Modifiers
+                    case R.id.btnClear:
+                        Log.d("BUTTON PRESSED: ", "C");
                         tv.setText(zero);
                         history.setText(zero);
                         clearMe();
-                    }
-                    historyMe();
-                    clearMe();
-                    boolHandleMe(-1);
-                    break;
-
-                //Modifiers
-                case R.id.btnClear:
-                    Log.d("BUTTON PRESSED: ", "C");
-                    tv.setText(zero);
-                    history.setText(zero);
-                    clearMe();
-                    break;
-                case R.id.btnDelete:
-                    Log.d("BUTTON PRESSED: ", "DEL");
-                    if((calc.indexOf('-') >= 0) || (calc.length() == 1)){
-                        tv.setText(zero);
-                    }
-                    else{
-                        calc = calc.substring(0, calc.length()-1);
-                        tv.setText(calc);
-                    }
-                    break;
-                case R.id.btnDecimal:
-                    Log.d("BUTTON PRESSED: ", ".");
-                    if(calc.indexOf('.') >=0){
                         break;
-                    }
-                    //Check length eventually
-                    else{
-                        tv.setText(calc + current);
-                    }
-                    break;
-                case R.id.btnPlusMinus:
-                    Log.d("BUTTON PRESSED: ", "+/-");
-                    if(calc.indexOf('-') >= 0)
-                    {
-                        tv.setText(calc.substring(1));
-                    } else if(calc.equals(zero)){
+                    case R.id.btnDelete:
+                        Log.d("BUTTON PRESSED: ", "DEL");
+                        if ((calc.indexOf('-') >= 0) || (calc.length() == 1)) {
+                            tv.setText(zero);
+                        } else {
+                            calc = calc.substring(0, calc.length() - 1);
+                            tv.setText(calc);
+                        }
                         break;
-                    } else {
-                        tv.setText('-'+calc); // append - to front of input
-                    }
-                    break;
-                //Memory
-                case R.id.btnMemClear:
-                    Log.d("BUTTON PRESSED: ", "MC");
-                    break;
-                case R.id.btnMemPlus:
-                    //Do Stuff
-                    Log.d("BUTTON PRESSED: ", "M+");
-                    break;
-                case R.id.btnMemMin:
-                    //Do Stuff
-                    Log.d("BUTTON PRESSED: ", "M-");
-                    break;
-                case R.id.btnMemReg:
-                    //Do Stuff
-                    Log.d("BUTTON PRESSED: ", "MR");
-                    break;
+                    case R.id.btnDecimal:
+                        Log.d("BUTTON PRESSED: ", ".");
+                        if (calc.indexOf('.') >= 0) {
+                            break;
+                        }
+                        //Check length eventually
+                        else {
+                            tv.setText(calc + current);
+                        }
+                        break;
+                    case R.id.btnPlusMinus:
+                        Log.d("BUTTON PRESSED: ", "+/-");
+                        if (calc.indexOf('-') >= 0) {
+                            tv.setText(calc.substring(1));
+                        } else if (calc.equals(zero)) {
+                            break;
+                        } else {
+                            tv.setText('-' + calc); // append - to front of input
+                        }
+                        break;
+                    //Memory
+                    case R.id.btnMemClear:
+                        Log.d("BUTTON PRESSED: ", "MC");
+                        break;
+                    case R.id.btnMemPlus:
+                        //Do Stuff
+                        Log.d("BUTTON PRESSED: ", "M+");
+                        break;
+                    case R.id.btnMemMin:
+                        //Do Stuff
+                        Log.d("BUTTON PRESSED: ", "M-");
+                        break;
+                    case R.id.btnMemReg:
+                        //Do Stuff
+                        Log.d("BUTTON PRESSED: ", "MR");
+                        break;
 
+                }
             }
-
         }
+
     };//End on click listener
 
 
@@ -479,10 +436,14 @@ public class MainActivity extends AppCompatActivity {
         String historyOutput = "";
         String currentHistory = history.getText().toString();
         //Length Check
-        if(currentHistory.length() > 30){historyOutput += currentHistory.substring(userInput.length() + 4);}
-        //Append
-        else{historyOutput += userInput;}
-        historyOutput+=operator;
+        if(currentHistory.length() > 30){
+            historyOutput += currentHistory.substring(userInput.length() + 4);
+        }
+        else{
+            historyOutput += currentHistory;
+        }
+        historyOutput += userInput;
+        historyOutput += operator;
         history.setText(historyOutput);
     }
 
@@ -547,25 +508,35 @@ public class MainActivity extends AppCompatActivity {
         total           = 0.0;
     }
 
-    //Update History
+    //Update History ONLY FOR "="
     public void historyMe(){
-        String hist = history.getText().toString();
-        String output = tv.getText().toString();
-        history.setText((hist+output));
+        history.setText(tv.getText().toString());
+//        history.append(tv.getText());
+    }
+
+    //Check if is undefined
+    public void defineMe(){
+        if (tv.getText().equals("Undefined")) {
+            g = Toast.makeText(getApplicationContext(), "Clearing Undefined Values.", Toast.LENGTH_SHORT);
+            g.show();
+            tv.setText(zero);
+            history.setText(zero);
+            clearMe();
+        }
     }
 
     //Set Textview
     public void showMe() {
         double zeroMe = Double.parseDouble(tv.getText().toString());
-        if (zeroMe == 0.0) {
-            tv.setText("Undefined");
-
-        } else {
+//        if (zeroMe == 0.0) {
+//            tv.setText("Undefined");
+//
+//        } else {
             String output = answer.toString();
             //Add  some checks here later
             tv.setText(output);
             clear = true;
-        }
+//        }
     }
 
 }
