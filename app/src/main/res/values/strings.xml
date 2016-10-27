@@ -8,9 +8,9 @@
     <string name="clear">C</string>
     <string name="del">Del</string>
 
-    <string name="div">/</string>
-    <string name="divr">%</string>
-    <string name="mult">*</string>
+    <string name="div">\u00F7</string>
+    <string name="squr">n&#178;</string>
+    <string name="mult">\u00D7</string>
     <string name="plus">+</string>
     <string name="min">-</string>
     <string name="equals">=</string>
