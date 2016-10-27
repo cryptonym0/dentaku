@@ -380,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
                             } else if (calc.equals(zero)) {
                                 break;
                             } else {
-                                tv.setText('-' + calc); // append - to front of input
+                                tv.setText('-' + calc);
                             }
                         }catch(NumberFormatException e) {
                             g.show();
@@ -503,15 +503,6 @@ public class MainActivity extends AppCompatActivity {
             tv.setText(userInput);
             clear = false;
         }
-        //Overflow
-//        else if(cur.equals(userInput)){
-//            try{
-//                tv.setText(userInput);
-//                clear = false;
-//            }catch(NumberFormatException e) {
-//                g.show();
-//            }
-//        }
         else if((userInput+cur).length() > 15){
             Log.d("INPUT HANDLER: ", "Too Many Values");
             f.show();
@@ -522,7 +513,6 @@ public class MainActivity extends AppCompatActivity {
             clear = false;
         }
     }
-
     //History Handler
     public void historyHandleMe(String userInput, Character operator){
         String historyOutput = "";
@@ -534,12 +524,17 @@ public class MainActivity extends AppCompatActivity {
         else{
             historyOutput += currentHistory;
         }
+        if(userInput.indexOf('-') >=0){
+            historyOutput += '(' + userInput + ')';
+            historyOutput += operator;
+        }
+        else{
+            historyOutput += userInput;
+            historyOutput += operator;
+        }
         temp = Double.parseDouble(userInput);
-        historyOutput += userInput;
-        historyOutput += operator;
         history.setText(historyOutput);
     }
-
     //Check previous Calculation
     public boolean autoUpdateMe(){
         String output = tv.getText().toString();
@@ -596,10 +591,19 @@ public class MainActivity extends AppCompatActivity {
         operator        = 0.0;
         total           = 0.0;
     }
-
     //Update History ONLY FOR "="
     public void historyMe(){
-        history.setText(tv.getText().toString());
+        String a = history.getText().toString();
+        String b = tv.getText().toString();
+        String c = "";
+
+        if(b.indexOf('-') >= 0){
+            c = a + '(' + b + ')';
+        }
+        else{
+            c=a+b;
+        }
+        history.setText(c);
     }
     //Set Textview
     public void showMe() {
