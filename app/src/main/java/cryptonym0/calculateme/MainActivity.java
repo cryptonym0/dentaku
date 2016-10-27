@@ -504,14 +504,14 @@ public class MainActivity extends AppCompatActivity {
             clear = false;
         }
         //Overflow
-        else if(cur.equals(userInput)){
-            try{
-                tv.setText(userInput);
-                clear = false;
-            }catch(NumberFormatException e) {
-                g.show();
-            }
-        }
+//        else if(cur.equals(userInput)){
+//            try{
+//                tv.setText(userInput);
+//                clear = false;
+//            }catch(NumberFormatException e) {
+//                g.show();
+//            }
+//        }
         else if((userInput+cur).length() > 15){
             Log.d("INPUT HANDLER: ", "Too Many Values");
             f.show();
