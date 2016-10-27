@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Globals
     TextView tv, history;
-    Double answer, mem, operator, total;
+    Double answer, mem, operator, total, temp;
     Boolean add, sub, div, squr, mult, num, clear, delete;
     String zero = "0";
     private Toast f, g, h;
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mem             = 0.0;
         operator        = 0.0;
         total           = 0.0;
+        temp            = 0.0;
 
         //Bools
         add             = false;
@@ -248,17 +249,9 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             historyHandleMe(calc, '^');
                             operator = Double.parseDouble(calc);
-                            //Check the 0
-                            if (total == 0.0 || operator == 0) {
-                                answer = operator;
-                                total = answer;
-                                tv.setText(zero);
-                                boolHandleMe(3);
-                            } else {
-                                answer = Math.pow(answer, operator);
-                                tv.setText(zero);
-                                boolHandleMe(3);
-                            }
+                            answer = Math.pow(temp, operator);
+                            tv.setText(zero);
+                            boolHandleMe(3);
                         }catch(NumberFormatException e) {
                             g.show();
                         }
@@ -306,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
                         try{
                         operator = Double.parseDouble(calc);//Breaks on this
                         double zeroMe = Double.parseDouble(calc);
-
                             if (add) {
                                 answer += operator;
                                 showMe();
@@ -322,8 +314,9 @@ public class MainActivity extends AppCompatActivity {
                                     showMe();
                                 }
                             } else if (squr) {
-                                //Currently broken
-//                                  showMe();
+                                answer = Math.pow(temp, operator);
+                                tv.setText(zero);
+                                showMe();
                             } else if (mult) {
                                 answer *= operator;
                                 showMe();
@@ -541,6 +534,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             historyOutput += currentHistory;
         }
+        temp = Double.parseDouble(userInput);
         historyOutput += userInput;
         historyOutput += operator;
         history.setText(historyOutput);
@@ -607,26 +601,11 @@ public class MainActivity extends AppCompatActivity {
     public void historyMe(){
         history.setText(tv.getText().toString());
     }
-
     //Set Textview
     public void showMe() {
         double zeroMe = Double.parseDouble(tv.getText().toString());
-//        if (zeroMe == 0.0) {
-//            tv.setText("Undefined");
-//
-//        } else {
-
         String output = new BigDecimal(answer).setScale(4, RoundingMode.HALF_UP).stripTrailingZeros().toString();
-
-
-//        String output = p4.format(answer).toString();
-            //Add  some checks here later
-
-
         tv.setText(output);
         clear = true;
-//        }
     }
-
-
 }
