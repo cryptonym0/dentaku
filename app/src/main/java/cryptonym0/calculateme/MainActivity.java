@@ -245,18 +245,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnSqur:
                         Log.d("BUTTON PRESSED: ", "X^");
                     if(!autoUpdateMe()) {
-                        historyHandleMe(calc, '^');
-                        operator = Double.parseDouble(calc);
-                        //Check the 0
-                        if (total == 0.0 || operator == 0) {
-                            answer = operator;
-                            total = answer;
-                            tv.setText(zero);
-                            boolHandleMe(3);
-                        } else {
-                            answer = Math.pow(answer, operator);
-                            tv.setText(zero);
-                            boolHandleMe(3);
+                        try {
+                            historyHandleMe(calc, '^');
+                            operator = Double.parseDouble(calc);
+                            //Check the 0
+                            if (total == 0.0 || operator == 0) {
+                                answer = operator;
+                                total = answer;
+                                tv.setText(zero);
+                                boolHandleMe(3);
+                            } else {
+                                answer = Math.pow(answer, operator);
+                                tv.setText(zero);
+                                boolHandleMe(3);
+                            }
+                        }catch(NumberFormatException e) {
+                            g.show();
                         }
                     }
                     else{
